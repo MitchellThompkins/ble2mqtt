@@ -49,6 +49,7 @@
 - **RuuviTag Pro 3in1 (type: ruuvitag_pro_3in1)**
 - **RuuviTag Pro 4in1 (type: ruuvitag)**
 - **Govee H5074, H5075 (type: govee_ht)**
+- **SwitchBot Meter Plus (type: switchbot_ht)**
 
 ### Air sensors
 - **Vson WP6003 (type: wp6003)**
@@ -169,7 +170,9 @@ The configuration file is a JSON with the following content:
     "mqtt_user": "",
     "mqtt_password": "",
     "log_level": "INFO",
-    "legacy_color_mode": false, // remove this comment and set to true if you have HA <2024.4
+  
+    "// remove this comment. Set next line to true if you have HA <2024.4": "",
+    "legacy_color_mode": false, 
     "devices": [
         {
             "address": "11:22:33:aa:cc:aa",
@@ -270,13 +273,13 @@ Put the following content to the unit file `/etc/systemd/system/ble2mqtt.service
 ```
 [Unit]
 Description=ble2mqtt bridge
+Wants=bluetooth.target
 
 [Service]
-Type=Simple
+Type=simple
 ExecStart=/usr/local/bin/ble2mqtt
 User=ble2mqtt
 Group=ble2mqtt
-Wants=bluetooth.target
 
 [Install]
 WantedBy=multi-user.target
